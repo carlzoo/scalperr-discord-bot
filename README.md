@@ -3,10 +3,11 @@ The Discord Bot which makes use of the Scalperr Backend API.
 
 ## Setup
 `git clone git@github.com:carlzoo/scalperr-discord-bot.git`
+
 `pip install requirements.txt`
 
 ## Testing
-`manually only, currently not possible via CI build pipelin`
+`manually only, currently not possible via CI build pipeline`
 
 ## Deployment
 `python bot.py`
