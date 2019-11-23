@@ -43,7 +43,7 @@ async def _tickemaster_count(ctx, *, event_id):
         bot_msg.set_empty()
     else:
         for section in json_response["sections"]:
-            bot_msg.add_section(section["section"], section["min_price"], section["max_price"],section["count"])
+            bot_msg.add_section(section["section"], section["min_price"], section["max_price"], section["count"])
     await ctx.send(embed=bot_msg)
 
 
