@@ -13,5 +13,5 @@ RUN pip install -r requirements.txt
 #set environments
 ENV DISCORD_TOKEN={DISCORD_TOKEN_HERE}
 ENV API_ACCESS_CODE={API_ACCESS_CODE_HERE}
-COPY *.py .
+COPY *.py /
 CMD ["python", "bot.py"]
