@@ -12,5 +12,13 @@ The Discord Bot which makes use of the Scalperr Backend API.
 ## Deployment
 `python bot.py`
 
-## Dockerfile
-coming soon
+## Docker
+Change `DISCORD_TOKEN` and `API_ACCESS_CODE` in Dockerfile.
+
+Build container:
+
+Go to project directory root and type
+
+`docker image build -t scalperr-discord-bot:0.1 .`
+
+`docker container run scalperr-discord-bot:0.1`
