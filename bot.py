@@ -68,10 +68,10 @@ async def _tickemaster_intl_count(ctx, *, event_id):
 @client.command(aliases=['axs'])
 async def _axs_count(ctx, *, event_id):
     url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
-          f'axsstockchecker/intl?access_code={api_access_code}&event_id={event_id}'
+          f'axsstockchecker?access_code={api_access_code}&event_id={event_id}'
     json_response = await http_get(url)
     if not json_response:
-        await ctx.send("Error fetching info from Ticketmaster")
+        await ctx.send("Error fetching info from AXS")
         return
 
     # create the embed
