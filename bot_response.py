@@ -12,7 +12,7 @@ class BotResponse(Embed):
         display_min_price = f'${min_price}'
         display_max_price = f'${max_price}'
         display_price = f'{display_min_price} - {display_max_price}'
-        self.add_field(name=f'Section {section_name}', value=f'{display_price} Count: {count}', inline=False)
+        self.add_field(name=f'Section {section_name}', value=f'{display_price} \nCount: {count}', inline=True)
 
     def set_empty(self):
         self.add_field(name=f'Error', value=f'No seats available', inline=False)
