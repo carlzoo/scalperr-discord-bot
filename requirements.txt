@@ -6,7 +6,7 @@ cfn-flip==1.2.2
 chardet==3.0.4
 Click==7.0
 discord==1.0.1
-discord.py==1.2.4
+discord.py==1.2.5
 docutils==0.15.2
 durationpy==0.5
 idna==2.8
