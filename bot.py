@@ -38,12 +38,10 @@ async def _tickemaster_count(ctx, *, event_id):
         return
 
     # create the embed
-    bot_msg = BotResponse("Ticketmaster Inventory Count", Colour.red())
-    if len(json_response["sections"]) == 0:
-        bot_msg.set_empty()
-    else:
-        for section in json_response["sections"]:
-            bot_msg.add_section(section["section"], section["min_price"], section["max_price"], section["count"])
+    bot_msg = BotResponse("Ticketmaster Inventory Count", event_id, Colour.red())
+    for section in json_response["sections"]:
+        bot_msg.add_section(section["section"], section["count"])
+    bot_msg.build_display()
     await ctx.send(embed=bot_msg)
 
 
@@ -52,16 +50,15 @@ async def _tickemaster_intl_count(ctx, *, event_id):
     url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
           f'tmstockchecker/intl?access_code={api_access_code}&event_id={event_id}'
     json_response = await http_get(url)
-    if not json_response:
+    if not json_response or "sections" not in json_response:
         await ctx.send("Error fetching info from Ticketmaster")
         return
 
     # create the embed
-    bot_msg = BotResponse("Ticketmaster International Inventory Count", Colour.blue())
-    if not json_response["sections"] or len(json_response["sections"]) == 0:
-        bot_msg.set_empty()
+    bot_msg = BotResponse("Ticketmaster International Inventory Count", event_id, Colour.blue())
     for section in json_response["sections"]:
-        bot_msg.add_section(section["section"], section["min_price"], section["max_price"], section["count"])
+        bot_msg.add_section(section["section"], section["count"])
+    bot_msg.build_display()
     await ctx.send(embed=bot_msg)
 
 
@@ -70,16 +67,15 @@ async def _axs_count(ctx, *, event_id):
     url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
           f'axsstockchecker?access_code={api_access_code}&event_id={event_id}'
     json_response = await http_get(url)
-    if not json_response:
+    if not json_response or "sections" not in json_response:
         await ctx.send("Error fetching info from AXS")
         return
 
     # create the embed
-    bot_msg = BotResponse("AXS Inventory Count", Colour.dark_blue())
-    if not json_response["sections"] or len(json_response["sections"]) == 0:
-        bot_msg.set_empty()
+    bot_msg = BotResponse("AXS Inventory Count", event_id, Colour.dark_blue())
     for section in json_response["sections"]:
-        bot_msg.add_section(section["section"], section["min_price"], section["max_price"], section["count"])
+        bot_msg.add_section(section["section"], section["count"])
+    bot_msg.build_display()
     await ctx.send(embed=bot_msg)
 
 
