@@ -22,3 +22,11 @@ Go to project directory root and type
 `docker image build -t scalperr-discord-bot:0.1 .`
 
 `docker container run scalperr-discord-bot:0.1`
+
+Run in background: `docker container run -d scalperr-discord-bot:0.1`
+
+Stop running container:
+
+Determine container id: `docker ps`
+
+`docker stop <container-id>`
