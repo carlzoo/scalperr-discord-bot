@@ -10,11 +10,13 @@ from dotenv import load_dotenv
 from bot_response import BotResponse
 
 load_dotenv()
-token = os.getenv('DISCORD_TOKEN')
-api_access_code = os.getenv('API_ACCESS_CODE')
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+API_ACCESS_CODE = os.getenv('API_ACCESS_CODE')
+API_BASE_URL = os.getenv('API_BASE_URL')
 
 
 client = commands.Bot(command_prefix='!stock ')
+client.remove_command("help")
 
 
 @client.event
@@ -22,7 +24,7 @@ async def on_ready():
     logger.info("bot is ready")
 
 
-@client.command(aliases=['commands'])
+@client.command(aliases=['help'])
 async def _show_help(ctx):
     bot_msg = BotResponse("Tickets Stock Checker", Colour.green(), True)
     bot_msg.build_display(True)
@@ -33,8 +35,7 @@ async def _show_help(ctx):
 async def _tickemaster_count(ctx, *, event_id):
     # get count
     logger.info("fetching event ticket count")
-    url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
-          f'tmstockchecker?access_code={api_access_code}&event_id={event_id}'
+    url = f'{API_BASE_URL}/tmstockchecker?access_code={API_ACCESS_CODE}&event_id={event_id}'
     count_response = await http_get(url)
     if not count_response or "sections" not in count_response:
         await ctx.send("Error fetching info from Ticketmaster")
@@ -42,8 +43,7 @@ async def _tickemaster_count(ctx, *, event_id):
 
     # get info
     logger.info("fetching event info")
-    url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
-          f'tmstockchecker/info?access_code={api_access_code}&event_id={event_id}'
+    url = f'{API_BASE_URL}/tmstockchecker/info?access_code={API_ACCESS_CODE}&event_id={event_id}'
     info_response = await http_get(url)
     event_name = info_response["event_name"] if info_response["event_name"] else event_id
     event_link = info_response["event_link"] if info_response["event_link"] \
@@ -68,8 +68,7 @@ async def _tickemaster_count(ctx, *, event_id):
 
 @client.command(aliases=['tmintl'])
 async def _tickemaster_intl_count(ctx, *, event_id):
-    url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
-          f'tmstockchecker/intl?access_code={api_access_code}&event_id={event_id}'
+    url = f'{API_BASE_URL}/tmstockchecker/intl?access_code={API_ACCESS_CODE}&event_id={event_id}'
     json_response = await http_get(url)
     if not json_response or "sections" not in json_response:
         await ctx.send("Error fetching info from Ticketmaster")
@@ -85,8 +84,7 @@ async def _tickemaster_intl_count(ctx, *, event_id):
 
 @client.command(aliases=['axs'])
 async def _axs_count(ctx, *, event_id):
-    url = f'https://yrmfkazv8g.execute-api.ca-central-1.amazonaws.com/dev_ca_central_1/' \
-          f'axsstockchecker?access_code={api_access_code}&event_id={event_id}'
+    url = f'{API_BASE_URL}/axsstockchecker?access_code={API_ACCESS_CODE}&event_id={event_id}'
     json_response = await http_get(url)
     if not json_response or "sections" not in json_response:
         await ctx.send("Error fetching info from AXS")
@@ -101,4 +99,4 @@ async def _axs_count(ctx, *, event_id):
 
 
 if __name__ == "__main__":
-    client.run(token)
+    client.run(DISCORD_TOKEN)
