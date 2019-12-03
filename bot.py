@@ -55,7 +55,6 @@ async def _tickemaster_count(ctx, *, event_id):
     # create the embed
     bot_msg = BotResponse("Ticketmaster Inventory Count", event_id, Colour.red())
     bot_msg.set_name(event_name)
-    bot_msg.set_name(event_name)
     bot_msg.set_url(event_link)
     bot_msg.set_city(event_city)
     bot_msg.set_venue(event_venue)
@@ -92,6 +91,8 @@ async def _axs_count(ctx, *, event_id):
 
     # create the embed
     bot_msg = BotResponse("AXS Inventory Count", event_id, Colour.dark_blue())
+    bot_msg.set_name("Event Link")
+    bot_msg.set_url(f"https://tix.axs.com/{event_id}")
     for section in json_response["sections"]:
         bot_msg.add_section(section["section"], section["count"])
     bot_msg.build_display()
